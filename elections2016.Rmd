@@ -21,7 +21,7 @@ library(dslabs)
 library(ggplot2)
 data("polls_us_election_2016")
 ```
-##95% Confidence Interval
+## 95% Confidence Interval
 Here we will use all the national polls that ended within a few weeks before the election.
 
 Assuming there are only two candidates, for each poll in the polling data set, we use the CLT to create a 95% confidence interval for the spread. 
@@ -50,7 +50,7 @@ p_hits<-cis %>% mutate(hit = lower <= actual_spread & upper >= actual_spread) %>
 summarize(proportion_hits=mean(hit))
 p_hits
 ```
-##Proportion of hits for each pollster
+## Proportion of hits for each pollster
 Then we find the proportion of hits for each pollster showing only pollsters with more than 5 polls and ordering them from best to worst. Also we show the number of polls conducted by each pollster and the FiveThirtyEight grade of each pollster.
 ```{r}
 p_hits <- cis %>% mutate(hit = lower <= actual_spread & upper >= actual_spread) %>% 
@@ -60,7 +60,7 @@ p_hits <- cis %>% mutate(hit = lower <= actual_spread & upper >= actual_spread) 
   arrange(desc(proportion_hits))
 p_hits
 ```
-##Proportion of hits for each state
+## Proportion of hits for each state
 Repeating the previous code, but instead of pollster, we stratify by state. Here we cannot include grades.
 ```{r}
 p_hits <- cis %>% mutate(hit = lower <= actual_spread & upper >= actual_spread) %>% 
@@ -70,7 +70,7 @@ p_hits <- cis %>% mutate(hit = lower <= actual_spread & upper >= actual_spread) 
   arrange(desc(proportion_hits)) 
 p_hits
 ```
-##Visualisation 
+## Visualisation 
 A barplot is created for this new state table.
 ```{r fig.height = 9, fig.width = 7, echo=FALSE}
 p_hits %>% mutate(state = reorder(state, proportion_hits))  %>%
@@ -78,7 +78,7 @@ p_hits %>% mutate(state = reorder(state, proportion_hits))  %>%
 geom_bar(stat = "identity",fill="skyblue",width=0.8)+coord_flip()
 ```
 
-##Difference between the predicted spread and the actual spread 
+## Difference between the predicted spread and the actual spread 
 Even if a forecaster's confidence interval is incorrect, the overall predictions will do better if they correctly called the right winner.
 So we add two columns to the cis table by computing, for each poll, the difference between the predicted spread and the actual spread, and define a column hit that is true if the signs are the same.
 ```{r}
@@ -110,7 +110,7 @@ p_hits %>% mutate(state = reorder(state, proportion_hits)) %>%
 
 In the previous graph, we see that most states' polls predicted the correct winner 100% of the time. Only a few states polls' were incorrect more than 25% of the time. Wisconsin got every single poll wrong. In Pennsylvania and Michigan, more than 90% of the polls had the signs wrong.
 
-##Histogram
+## Histogram
 Lets make a histogram of the errors and find the median of these errors.
 
 
