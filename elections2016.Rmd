@@ -120,6 +120,7 @@ hist(errors$error)
 median(errors$error)
 ```
 
+## Boxplot
 We see that, at the state level, the median error was slightly in favor of Clinton. The distribution is not centered at 0, but at 0.037. This value represents the general bias. So we create a boxplot to examine if the bias was general to all states or if it affected some states differently. Also the data is filtered to include only pollsters with grades B+ or higher.
 
 ```{r fig.height = 9, fig.width = 7, echo=FALSE}
